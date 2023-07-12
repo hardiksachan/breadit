@@ -1,4 +1,5 @@
 import MiniCreatePost from "@/components/MiniCreatePost";
+import PostFeed from "@/components/PostFeed";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { getAuthSesion } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -26,10 +27,13 @@ const page: FC<pageProps> = async ({ params }) => {
           comments: true,
           subreddit: true,
         },
+        orderBy: {
+          createdAt: 'desc'
+        },
         take: INFINITE_SCROLLING_PAGINATION_RESULTS,
       },
     },
-  });
+  })
 
   if (!subreddit) {
     return notFound();
@@ -41,7 +45,7 @@ const page: FC<pageProps> = async ({ params }) => {
         r/{subreddit.name}
       </h1>
       <MiniCreatePost session={session} />
-      {/* TODO: show posts in user feed */}
+      <PostFeed initialPosts={subreddit.posts} subredditName={subreddit.name} />
     </>
   );
 };

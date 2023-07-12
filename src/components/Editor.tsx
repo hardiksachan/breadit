@@ -66,7 +66,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
               endpoint: "/api/link",
             },
           },
-          imageTool: {
+          image: {
             class: ImageTool,
             config: {
               uploader: {
